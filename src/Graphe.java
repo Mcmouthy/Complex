@@ -31,5 +31,18 @@ public class Graphe {
         nbAretes = aretes.size();
     }
 
+    public boolean isConnexe(){
+        for(Sommet s:sommets) s.marque = false;
+        parcoursMarquageRecur(sommets.get(0));
+        for(Sommet s:sommets) if(!s.marque) return false;
+        return true;
+    }
 
+    public void parcoursMarquageRecur(Sommet s){
+        s.marque = true;
+        for(Arete a:s.voisins){
+            Sommet s2 = a.getOtherSideSommet(s);
+            if(!s2.marque) parcoursMarquageRecur(s2);
+        }
+    }
 }

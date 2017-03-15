@@ -9,4 +9,8 @@ public class Arete {
         this.sommet1 = sommet1;
         this.sommet2 = sommet2;
     }
+
+    public Sommet getOtherSideSommet(Sommet s){
+        return s.equals(sommet1) ? sommet2 : sommet1;
+    }
 }
