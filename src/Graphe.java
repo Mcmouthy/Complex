@@ -10,11 +10,13 @@ public class Graphe {
     List<Sommet> sommets;
     int nbSommets;
     int nbAretes;
+    int[][] distance;
 
     public Graphe() {
         sommets = new ArrayList<>();
         nbSommets = 0;
         nbAretes = 0;
+        distance=new int[nbSommets][nbSommets];
     }
 
     public void addSommet(Sommet s) {
@@ -29,6 +31,13 @@ public class Graphe {
             for (Arete a : s.voisins)
                 aretes.add(a);
         nbAretes = aretes.size();
+    }
+
+    public void calculPlusCourtesDistances(Sommet source){
+        source.marque=true;
+        for (Arete s:source.voisins) {
+
+        }
     }
 
 

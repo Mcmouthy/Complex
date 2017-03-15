@@ -9,13 +9,14 @@ import java.util.Set;
 public class Sommet {
     List<Arete> voisins;
     boolean marque;
+    int minDistance;
 
     public Sommet(){
         voisins = new ArrayList<>();
     }
 
-    public void addVoisin(Sommet s){
-        Arete arete = new Arete(this,s);
+    public void addVoisin(Sommet s,int distance){
+        Arete arete = new Arete(this,s,distance);
         voisins.add(arete);
         s.voisins.add(arete);
     }
