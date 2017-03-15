@@ -11,4 +11,8 @@ public class Arete {
         this.sommet2 = sommet2;
         this.distance = distance;
     }
+
+    public Sommet getOtherSideSommet(Sommet s){
+        return s.equals(sommet1) ? sommet2 : sommet1;
+    }
 }
