@@ -7,6 +7,8 @@ import java.util.Set;
  * Created by yhaffner on 08/03/17.
  */
 public class Graphe {
+
+    final static int INFINI=65535;
     List<Sommet> sommets;
     int nbSommets;
     int nbAretes;
@@ -35,8 +37,16 @@ public class Graphe {
 
     public void calculPlusCourtesDistances(Sommet source){
         source.marque=true;
-        for (Arete s:source.voisins) {
-
+        for (Sommet som:sommets){
+            if (!som.marque) som.minDistance=INFINI;
+        }
+        for (Sommet somm:sommets) {
+            for (Arete s : somm.voisins) {
+                if (s.distance < s.getOtherSideSommet(somm).minDistance) {
+                    s.getOtherSideSommet(somm).minDistance = s.distance;
+                }
+            }
+            somm.marque=true;
         }
     }
 
