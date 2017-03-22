@@ -34,8 +34,12 @@ public class Graphe {
         nbAretes = aretes.size();
     }
 
-    public void calculPlusCourtesDistances(Sommet source) {
-
+    public int[][] calculPlusCourtesDistances() {
+        int[][] distance = new int[sommets.size()][sommets.size()];
+        for (int i =0;i<sommets.size();i++){
+            distance[i]=algoDijsktra(sommets.get(i));
+        }
+        return distance;
     }
 
 
@@ -85,6 +89,7 @@ public class Graphe {
     public void reinitValue(){ // methode qui remet tous noeuds a une mindistance de +infini
         for (Sommet s:sommets){
             s.minDistance=INFINI;
+            s.marque=false;
         }
     }
 

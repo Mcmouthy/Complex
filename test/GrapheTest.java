@@ -53,7 +53,17 @@ public class GrapheTest {
         int[] tab=grapheConnexe.algoDijsktra(grapheConnexe.sommets.get(0));
         int[] b={0,2,4,9};
         Assert.assertArrayEquals(tab,b);
+    }
 
+    @Test
+    public void testAlgoDijFinal(){
+        int[][] tab=grapheConnexe.calculPlusCourtesDistances();
+        int[][] b={{0,2,4,9},
+                   {2,0,5,7},
+                   {4,5,0,8},
+                   {9,7,8,0}
+        };
+        Assert.assertArrayEquals(tab,b);
     }
 
 
