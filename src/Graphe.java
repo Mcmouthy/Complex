@@ -35,17 +35,56 @@ public class Graphe {
     }
 
     public void calculPlusCourtesDistances(Sommet source) {
-        source.marque = true;
-        for (Sommet som : sommets) {
-            if (!som.marque) som.minDistance = INFINI;
+
+    }
+
+
+    public int[] algoDijsktra(Sommet source){
+        source.minDistance=0;
+        for (Arete a:source.voisins){
+            Sommet v=a.getOtherSideSommet(source);
+            if (source.minDistance+a.distance<v.minDistance && !v.marque){
+                v.minDistance=source.minDistance+a.distance;
+            }
         }
-        for (Sommet somm : sommets) {
-            for (Arete s : somm.voisins) {
-                if (s.distance < s.getOtherSideSommet(somm).minDistance) {
-                    s.getOtherSideSommet(somm).minDistance = s.distance;
+        source.marque=true;
+        while(!checkAllMarked()) {
+            Sommet fantome = new Sommet();
+            for (Sommet s : sommets) {
+                if (s.minDistance < fantome.minDistance && !s.marque) {
+                    fantome = s;
                 }
             }
-            somm.marque = true;
+
+            for (Arete ar : fantome.voisins) {
+                Sommet som = ar.getOtherSideSommet(fantome);
+                if (fantome.minDistance + ar.distance < som.minDistance && !som.marque) {
+                    som.minDistance = fantome.minDistance + ar.distance;
+                }
+            }
+            fantome.marque = true;
+        }
+
+        int[] distanceNoeud= new int[sommets.size()];
+        for (int i=0; i<sommets.size();i++){
+            distanceNoeud[i]=sommets.get(i).minDistance;
+        }
+        reinitValue();
+        return distanceNoeud;
+    }
+
+    public boolean checkAllMarked() { // methode qui retourne true si tous les noeuds sont marqués
+        for (Sommet s:sommets){
+            if (!s.marque){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void reinitValue(){ // methode qui remet tous noeuds a une mindistance de +infini
+        for (Sommet s:sommets){
+            s.minDistance=INFINI;
         }
     }
 

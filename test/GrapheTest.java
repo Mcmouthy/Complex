@@ -47,4 +47,14 @@ public class GrapheTest {
         Assert.assertTrue(grapheConnexe.isConnexe());
         Assert.assertFalse(grapheNonConnexe.isConnexe());
     }
+
+    @Test
+    public void testAlgoDij() {
+        int[] tab=grapheConnexe.algoDijsktra(grapheConnexe.sommets.get(0));
+        int[] b={0,2,4,9};
+        Assert.assertArrayEquals(tab,b);
+
+    }
+
+
 }

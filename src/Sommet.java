@@ -12,6 +12,7 @@ public class Sommet {
     public Sommet() {
         voisins = new ArrayList<>();
         marque = false;
+        minDistance=Graphe.INFINI;
     }
 
     public void addVoisin(Sommet s, int distance) {
