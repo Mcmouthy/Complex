@@ -1,14 +1,13 @@
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by yhaffner on 08/03/17.
  */
 public class Graphe {
 
-    final static int INFINI=65535;
+    final static int INFINI = 65535;
     List<Sommet> sommets;
     int nbSommets;
     int nbAretes;
@@ -18,7 +17,7 @@ public class Graphe {
         sommets = new ArrayList<>();
         nbSommets = 0;
         nbAretes = 0;
-        distance=new int[nbSommets][nbSommets];
+        distance = new int[nbSommets][nbSommets];
     }
 
     public void addSommet(Sommet s) {
@@ -35,33 +34,33 @@ public class Graphe {
         nbAretes = aretes.size();
     }
 
-    public void calculPlusCourtesDistances(Sommet source){
-        source.marque=true;
-        for (Sommet som:sommets){
-            if (!som.marque) som.minDistance=INFINI;
+    public void calculPlusCourtesDistances(Sommet source) {
+        source.marque = true;
+        for (Sommet som : sommets) {
+            if (!som.marque) som.minDistance = INFINI;
         }
-        for (Sommet somm:sommets) {
+        for (Sommet somm : sommets) {
             for (Arete s : somm.voisins) {
                 if (s.distance < s.getOtherSideSommet(somm).minDistance) {
                     s.getOtherSideSommet(somm).minDistance = s.distance;
                 }
             }
-            somm.marque=true;
+            somm.marque = true;
         }
     }
 
-    public boolean isConnexe(){
-        for(Sommet s:sommets) s.marque = false;
+    public boolean isConnexe() {
+        for (Sommet s : sommets) s.marque = false;
         parcoursMarquageRecur(sommets.get(0));
-        for(Sommet s:sommets) if(!s.marque) return false;
+        for (Sommet s : sommets) if (!s.marque) return false;
         return true;
     }
 
-    public void parcoursMarquageRecur(Sommet s){
+    public void parcoursMarquageRecur(Sommet s) {
         s.marque = true;
-        for(Arete a:s.voisins){
+        for (Arete a : s.voisins) {
             Sommet s2 = a.getOtherSideSommet(s);
-            if(!s2.marque) parcoursMarquageRecur(s2);
+            if (!s2.marque) parcoursMarquageRecur(s2);
         }
     }
 }

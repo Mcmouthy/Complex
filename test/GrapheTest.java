@@ -6,8 +6,8 @@ import org.junit.Test;
  * Created by yhaffner on 15/03/17.
  */
 public class GrapheTest {
-    Graphe grapheConnexe;
-    Graphe grapheNonConnexe;
+    private Graphe grapheConnexe;
+    private Graphe grapheNonConnexe;
 
     @Before
     public void b4() {
@@ -21,11 +21,11 @@ public class GrapheTest {
         grapheConnexe.addSommet(c);
         Sommet d = new Sommet();
         grapheConnexe.addSommet(d);
-        a.addVoisin(b,2);
-        b.addVoisin(d,7);
-        a.addVoisin(c,4);
-        d.addVoisin(c,8);
-        b.addVoisin(c,5);
+        a.addVoisin(b, 2);
+        b.addVoisin(d, 7);
+        a.addVoisin(c, 4);
+        d.addVoisin(c, 8);
+        b.addVoisin(c, 5);
 
 
         grapheNonConnexe = new Graphe();
@@ -38,8 +38,8 @@ public class GrapheTest {
         grapheNonConnexe.addSommet(s3);
         Sommet s4 = new Sommet();
         grapheNonConnexe.addSommet(s4);
-        s1.addVoisin(s2,2);
-        s2.addVoisin(s4,5);
+        s1.addVoisin(s2, 2);
+        s2.addVoisin(s4, 5);
     }
 
     @Test
