@@ -107,4 +107,29 @@ public class Graphe {
             if (!s2.marque) parcoursMarquageRecur(s2);
         }
     }
+
+    public boolean isGrapheComplet(){
+        for(Sommet s : sommets){
+            if (s.voisins.size()!=sommets.size()-1){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int traceCircuit(Sommet source){
+        source.marque=true;
+        int distance =0;
+        Arete next=source.voisins.get(0);
+        while(!checkAllMarked()) {
+            for (int i = 1; i < source.voisins.size(); i++) {
+                if (source.voisins.get(i).distance < next.distance && !next.getOtherSideSommet(source).marque) {
+                    next = source.voisins.get(i);
+                }
+            }
+            distance += next.distance;
+            traceCircuit(next.getOtherSideSommet(source));
+        }
+        return distance;
+    }
 }
