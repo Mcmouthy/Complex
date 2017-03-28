@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -53,7 +54,7 @@ public class Graphe {
         }
         source.marque=true;
         while(!checkAllMarked()) {
-            Sommet fantome = new Sommet();
+            Sommet fantome = new Sommet("");
             for (Sommet s : sommets) {
                 if (s.minDistance < fantome.minDistance && !s.marque) {
                     fantome = s;
@@ -117,7 +118,8 @@ public class Graphe {
         return true;
     }
 
-    public int traceCircuit(Sommet source){
+    public int traceCircuit(Sommet source){ //cet algo ne fonctionne pas si un sommet a deux voisins non marqués
+                                            // avec la même distance
         source.marque=true;
         int distance =0;
         Arete next=source.voisins.get(0);
@@ -128,8 +130,25 @@ public class Graphe {
                 }
             }
             distance += next.distance;
-            traceCircuit(next.getOtherSideSommet(source));
+            distance+=traceCircuit(next.getOtherSideSommet(source));
         }
         return distance;
+    }
+
+    public static Graphe initGraphe(String filename) throws IOException {
+        Graphe g = new Graphe();
+        BufferedReader bf= new BufferedReader(new FileReader(filename));
+        String line=bf.readLine();
+        while(!line.equals("")){
+            String[] tab=line.split(":");
+            Sommet s=new Sommet(tab[0]);
+            String[] tab2=tab[1].split(";");
+            for (int i=0;i<tab2.length;i++) {
+                int dist=Integer.parseInt(tab2[i].split("[\\(\\)]")[1]);
+                s.addVoisin(new Sommet(""+tab2[i].charAt(0)),dist);
+            }
+            g.addSommet(s);
+        }
+        return g;
     }
 }
