@@ -13,13 +13,13 @@ public class GrapheTest {
     public void b4() {
         grapheConnexe = new Graphe();
 
-        Sommet a = new Sommet();
+        Sommet a = new Sommet("A");
         grapheConnexe.addSommet(a);
-        Sommet b = new Sommet();
+        Sommet b = new Sommet("B");
         grapheConnexe.addSommet(b);
-        Sommet c = new Sommet();
+        Sommet c = new Sommet("C");
         grapheConnexe.addSommet(c);
-        Sommet d = new Sommet();
+        Sommet d = new Sommet("D");
         grapheConnexe.addSommet(d);
         a.addVoisin(b, 2);
         b.addVoisin(d, 7);
@@ -30,13 +30,13 @@ public class GrapheTest {
 
         grapheNonConnexe = new Graphe();
 
-        Sommet s1 = new Sommet();
+        Sommet s1 = new Sommet("Gibraltar");
         grapheNonConnexe.addSommet(s1);
-        Sommet s2 = new Sommet();
+        Sommet s2 = new Sommet("Simigo");
         grapheNonConnexe.addSommet(s2);
-        Sommet s3 = new Sommet();
+        Sommet s3 = new Sommet("Nartali");
         grapheNonConnexe.addSommet(s3);
-        Sommet s4 = new Sommet();
+        Sommet s4 = new Sommet("Portibus");
         grapheNonConnexe.addSommet(s4);
         s1.addVoisin(s2, 2);
         s2.addVoisin(s4, 5);
@@ -60,6 +60,7 @@ public class GrapheTest {
         int[][] tab=grapheConnexe.calculPlusCourtesDistances();
         int[][] b={{0,2,4,9},
                    {2,0,5,7},
+
                    {4,5,0,8},
                    {9,7,8,0}
         };
