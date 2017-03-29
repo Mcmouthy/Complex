@@ -120,17 +120,28 @@ public class Graphe {
 
     public int traceCircuit(Sommet source){ //cet algo ne fonctionne pas si un sommet a deux voisins non marqués
                                             // avec la même distance
-        source.marque=true;
-        int distance =0;
-        Arete next=source.voisins.get(0);
-        while(!checkAllMarked()) {
-            for (int i = 1; i < source.voisins.size(); i++) {
-                if (source.voisins.get(i).distance < next.distance && !next.getOtherSideSommet(source).marque) {
-                    next = source.voisins.get(i);
+
+        int distance=0;
+        Sommet source2=source;
+        source2.marque=true;
+        Sommet next=source2.voisins.get(0).getOtherSideSommet(source2);
+        while(!checkAllMarked()){
+            int mindist=INFINI;
+            for(int i=0;i<source2.voisins.size();i++) {
+                if (source2.voisins.get(i).distance < mindist && !source2.voisins.get(i).getOtherSideSommet(source2).marque) {
+                    mindist = source2.voisins.get(i).distance;
+                    next = source2.voisins.get(i).getOtherSideSommet(source2);
                 }
             }
-            distance += next.distance;
-            distance+=traceCircuit(next.getOtherSideSommet(source));
+            distance+=mindist;
+            source2=next;
+            source2.marque=true;
+            next=source2.voisins.get(0).getOtherSideSommet(source2);
+        }
+        for (int j=0;j<source2.voisins.size();j++){
+            if (source2.voisins.get(j).getOtherSideSommet(source2).equals(source)){
+                distance+=source2.voisins.get(j).distance;
+            }
         }
         return distance;
     }
