@@ -139,16 +139,25 @@ public class Graphe {
         Graphe g = new Graphe();
         BufferedReader bf= new BufferedReader(new FileReader(filename));
         String line=bf.readLine();
+        String[] tab=line.split(",");
+        for (int i=0;i<tab.length;i++){
+            g.addSommet(new Sommet(tab[i]));
+        }
+        line=bf.readLine();
         while(!line.equals("")){
-            String[] tab=line.split(":");
-            Sommet s=new Sommet(tab[0]);
-            String[] tab2=tab[1].split(";");
-            for (int i=0;i<tab2.length;i++) {
-                int dist=Integer.parseInt(tab2[i].split("[\\(\\)]")[1]);
-                s.addVoisin(new Sommet(""+tab2[i].charAt(0)),dist);
+            String[] tab2=line.split(":");
+            String[] arrete=tab2[1].split(",");
+            for (int j=0;j<tab2.length;j++){
+                g.sommets.get(j).addVoisin(g.getBynom(arrete[j].charAt(0)),Integer.parseInt(arrete[j].substring(1)));
             }
-            g.addSommet(s);
         }
         return g;
+    }
+
+    private Sommet getBynom(char c) {
+        for(Sommet s:sommets){
+            if (s.nom.equals(""+c))return s;
+        }
+        return null;
     }
 }
